@@ -165,7 +165,7 @@ int main(int argc,char **argv)
 		unsigned int sz=ftell(f);
 		fseek(f,0,SEEK_SET);
 		prg=(char*)malloc(sz);
-		if(fread(prg,sz,1,f) != sz)
+		if(fread(prg,sz,1,f) != 1)
 			fatal("The input file magically changed it's size on us");
 		fclose(f);
 	}
