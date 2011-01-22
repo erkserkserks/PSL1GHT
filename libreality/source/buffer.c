@@ -4,7 +4,7 @@
 s32 rsxContextCallback(gcmContextData* context, u32 count)
 {
 	opd32* callback = (opd32*)(u64)context->callback;
-	opd64 opd = {
+	volatile opd64 opd = {
 		(void*)(u64)callback->func,
 		(void*)(u64)callback->rtoc,
 		0
