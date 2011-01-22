@@ -82,7 +82,7 @@ void *realityVertexProgramGetUCode(realityVertexProgram *vertexprogram);
 u32 realityVertexProgramGetInputMask(realityVertexProgram *vertexprogram);
 u32 realityVertexProgramGetOutputMask(realityVertexProgram *vertexprogram);
 realityProgramAttrib *realityVertexProgramGetAttributes(realityVertexProgram *vertexprogram);
-s32 realityVertexProgramGetInputAttribute(realityVertexProgram *vertexprogram,const char *name);
+s32 realityVertexProgramGetAttribute(realityVertexProgram *vertexprogram,const char *name);
 realityProgramConst *realityVertexProgramGetConstants(realityVertexProgram *vertexprogram);
 s32 realityVertexProgramGetConstant(realityVertexProgram *vertexprogram,const char *name);
 
