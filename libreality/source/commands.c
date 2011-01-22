@@ -105,7 +105,7 @@ void realityLoadVertexProgram_old(gcmContextData *context, realityVertexProgram_
 	commandBufferPutCmd1(context, NV30_3D_VP_UPLOAD_FROM_ID, 0);
 	
 	for(inst = 0; inst < prog->size; inst += 4) {
-		commandBufferPutCmd4(context, NV30_3D_VP_UPLOAD_INST(inst), 
+		commandBufferPutCmd4(context, NV30_3D_VP_UPLOAD_INST(inst & 31),
 					prog->data[inst + 0],
 					prog->data[inst + 1],
 					prog->data[inst + 2],
@@ -125,7 +125,7 @@ void realityLoadVertexProgram(gcmContextData *context, realityVertexProgram *pro
 	commandBufferPutCmd1(context, NV30_3D_VP_UPLOAD_FROM_ID, 0);
 	
 	for(inst = 0; inst < prog->num_insn*4; inst += 4) {
-		commandBufferPutCmd4(context, NV30_3D_VP_UPLOAD_INST(inst), 
+		commandBufferPutCmd4(context, NV30_3D_VP_UPLOAD_INST(inst & 31),
 					ucode[inst + 0],
 					ucode[inst + 1],
 					ucode[inst + 2],
