@@ -72,6 +72,23 @@ typedef	struct {
 	net_fd_mask	fds_bits[howmany(NET_FD_SETSIZE, NET_NFDBITS)];
 } net_fd_set;
 
+
+typedef unsigned int nfds_t;
+
+struct pollfd {
+  int fd;
+  short events;
+  short revents;
+};
+
+#define POLLIN		0x0001
+#define POLLPRI		0x0002
+#define POLLOUT		0x0004
+#define POLLERR		0x0008
+#define POLLHUP		0x0010
+#define POLLNVAL	0x0020
+
+
 EXTERN_BEGIN
 
 s32 netInitialize();
@@ -108,6 +125,7 @@ int netSocket(int domain, int type, int protocol);
 int netSocketPair(int domain, int type, int protocol, int socket_vector[2]);
 s32 netClose(int socket);
 s32 netGetSockInfo(s32 socket, netSocketInfo* p, s32 n);
+int netPoll(struct pollfd *fds, nfds_t nfds, int timeout);
 
 struct net_hostent* netGetHostByAddr(const char* addr, net_socklen_t len, int type);
 struct net_hostent* netGetHostByName(const char* name);
