@@ -10,6 +10,7 @@ tools/raw2h/raw2h
 tools/sprxlinker/sprxlinker
 tools/ps3load/ps3load
 tools/vpcomp/vpcomp
+tools/cgcomp/cgcomp
 tools/geohot/make_self
 tools/geohot/make_self_npdrm
 tools/geohot/package_finalize

@@ -150,13 +150,14 @@ reloop:
 
 		printf("Launching...\n");
 
-		int fd = open(SELF_PATH, O_CREAT | O_TRUNC | O_WRONLY);
+		int fd = open(SELF_PATH, O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);
 		ERROR(fd, "Error opening temporary file.");
 
 		pos = 0;
 		while (pos < uncompressed) {
 			count = MIN(0x1000, uncompressed - pos);
-			write(fd, data + pos, count);
+			if (write(fd, data + pos, count) != count)
+				continueloop();
 			pos += count;
 		}
 
@@ -200,7 +201,7 @@ reloop:
 						continue;
 					}
 
-					int tfd = open(path, O_CREAT | O_TRUNC | O_WRONLY);
+					int tfd = open(path, O_CREAT | O_TRUNC | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);
 					ERROR(tfd, "Error opening temporary file.");
 
 					pos = 0;
@@ -209,7 +210,8 @@ reloop:
 						count = MIN(0x1000, st.size - pos);
 						if (zip_fread(zfd, buffer, count) != count)
 							ERROR(1, "Error reading from zip.");
-						write(tfd, buffer, count);
+						if (write(tfd, buffer, count) != count)
+							continueloop();
 						pos += count;
 					}
 					free(buffer);

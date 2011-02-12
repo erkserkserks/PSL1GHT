@@ -29,12 +29,9 @@ mode_t psl1ght_umask_r(struct _reent* r, mode_t cmask)
 #pragma weak send
 #pragma weak recv
 
-#define DEFAULT_FILE_MODE UMASK(S_IRWXU | S_IRWXG | S_IRWXO)
 int psl1ght_open_r(struct _reent* r, const char* path, int oflag, int mode)
 {
 	Lv2FsFile fd;
-
-	oflag |= mode;
 
 	int lv2flag = oflag & (O_ACCMODE | LV2_O_MSELF);
 	if (oflag & O_CREAT)
@@ -46,16 +43,17 @@ int psl1ght_open_r(struct _reent* r, const char* path, int oflag, int mode)
 	if (oflag & O_APPEND)
 		lv2flag |= LV2_O_APPEND;
 
-	mode = 0;
-	if (oflag & O_WRONLY)
-		mode = DEFAULT_FILE_MODE;
+	if (oflag & O_CREAT)
+		mode = UMASK(mode);
+	else
+		mode = 0;
 
 	int ret = lv2FsOpen(path, lv2flag, &fd, mode, NULL, 0);
 	if (ret)
 		return lv2ErrnoReentrant(r, ret);
 
 	if (oflag & O_CREAT)
-		lv2FsChmod(path, DEFAULT_FILE_MODE);
+		lv2FsChmod(path, mode);
 
 	return fd;
 }

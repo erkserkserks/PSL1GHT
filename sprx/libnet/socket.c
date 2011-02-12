@@ -176,6 +176,16 @@ int select(int nfds, fd_set* readfds, fd_set* writefds, fd_set* errorfds, struct
 	return netErrno(ret);
 }
 
+int poll(struct pollfd fds[], nfds_t nfds, int timeout)
+{
+	if (!LIBNET_INITIALIZED) {
+		errno = ENOSYS;
+		return -1;
+	}
+
+	return netErrno(netPoll(fds, nfds, timeout));
+}
+
 int getsockname(int socket, struct sockaddr* address, socklen_t* address_len)
 {
 	s32 ret;
