@@ -672,14 +672,17 @@ void CFPParser::ParseScalarSrc(const char *token,struct nvfx_src *reg)
 
 int CFPParser::GetConstRegType(int index)
 {
+	s32 i;
 	std::list<param>::iterator it = m_lParameters.begin();
 
 	for(;it!=m_lParameters.end();it++) {
-		if((int)it->index==index) {
-			if(it->is_const && it->is_internal)
-				return NVFXSR_IMM;
-			else if(it->is_const)
-				return NVFXSR_CONST;
+		for(i=0;i<it->count;i++) {
+			if((int)(it->index + 1)==index) {
+				if(it->is_const && it->is_internal)
+					return NVFXSR_IMM;
+				else if(it->is_const)
+					return NVFXSR_CONST;
+			}
 		}
 	}
 	return -1;

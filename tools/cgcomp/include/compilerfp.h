@@ -45,11 +45,29 @@ private:
 
 	inline param GetImmData(int index)
 	{
-		std::list<param>::iterator it = m_lImmData.begin();
-		for(;it!=m_lImmData.end();it++) {
-			if((int)it->index==index) {
-				if(it->is_const && it->is_internal)
-					return *it;
+		s32 i;
+		std::list<param>::iterator it = m_lParameters.begin();
+		for(;it!=m_lParameters.end();it++) {
+			for(i=0;i<it->count;i++) {
+				if((int)(it->index + i)==index) {
+					if(it->is_const && it->is_internal)
+						return *it;
+				}
+			}
+		}
+		return param();
+	}
+
+	inline param GetInputAttrib(int index)
+	{
+		s32 i;
+		std::list<param>::iterator it = m_lParameters.begin();
+		for(;it!=m_lParameters.end();it++) {
+			for(i=0;i<it->count;i++) {
+				if((int)(it->index + i)==index) {
+					if(!it->is_const && !it->is_internal)
+						return *it;
+				}
 			}
 		}
 		return param();
@@ -67,7 +85,7 @@ private:
 
 	struct nvfx_reg *m_rTemp;
 
-	std::list<param> m_lImmData;
+	std::list<param> m_lParameters;
 	std::list<struct fragment_program_data> m_lConstData;
 	std::stack<int> m_repStack;
 };

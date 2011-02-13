@@ -4,13 +4,17 @@
 #include <psl1ght/types.h>
 
 //Param types
-#define PARAM_FLOAT		0
-#define PARAM_FLOAT2	1
-#define PARAM_FLOAT3	2
-#define PARAM_FLOAT4	3
-
-
-#define PARAM_FLOAT4x4	4
+#define PARAM_FLOAT				0
+#define PARAM_FLOAT2				1
+#define PARAM_FLOAT3				2
+#define PARAM_FLOAT4				3
+#define PARAM_FLOAT4x4			4
+#define PARAM_SAMPLER1D			5
+#define PARAM_SAMPLER2D			6
+#define PARAM_SAMPLER3D			7
+#define PARAM_SAMPLERCUBE		8
+#define PARAM_SAMPLERRECT		9
+#define PARAM_UNKNOWN			0xff
 
 
 #ifdef __cplusplus

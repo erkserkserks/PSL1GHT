@@ -37,6 +37,7 @@ typedef unsigned int				u32;
 typedef unsigned __int64			u64;
 #else
 typedef unsigned long long			u64;
+#endif
 
 typedef float						f32;
 typedef double						f64;
@@ -55,8 +56,6 @@ typedef double						f64;
 
 #ifndef boolean
 #define boolean						char
-#endif
-
 #endif
 
 #define MIN2(a,b)		((a)<(b) ? (a) : (b))

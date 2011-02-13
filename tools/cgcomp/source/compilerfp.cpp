@@ -43,7 +43,7 @@ void CCompilerFP::Prepare(CParser *pParser)
 	int i,j,nCount = pParser->GetInstructionCount();
 	struct nvfx_insn *insns = pParser->GetInstructions();
 
-	m_lImmData = pParser->GetParameters();
+	m_lParameters = pParser->GetParameters();
 
 	for(i=0;i<nCount;i++) {
 		struct nvfx_insn *insn = &insns[i];

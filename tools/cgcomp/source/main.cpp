@@ -352,23 +352,24 @@ int compileFP()
 		std::list<struct fragment_program_data> const_relocs = compiler.GetConstRelocations();
 		for(std::list<param>::iterator it = params.begin();it!=params.end();it++) {
 			if(it->is_const && !it->is_internal) {
-				s32 inst_idx = -1;
-
 				it->user = lastoff + (n*sizeof(rsxProgramConst));
 				consts[n].count = it->count;
 				consts[n].type = it->type;
 				consts[n].is_internal = it->is_internal;
 				consts[n].name_off = SWAP32(0);
-				for(std::list<struct fragment_program_data>::iterator d=const_relocs.begin();d!=const_relocs.end();d++) {
-					if(d->index==it->index) {
-						inst_idx = d->offset;
-						break;
-					}
-				}
 
 				for(i=0;i<(s32)it->count;i++) {
+					s32 inst_idx = -1;
+
+					for(std::list<struct fragment_program_data>::iterator d=const_relocs.begin();d!=const_relocs.end();d++) {
+						if(d->index==(it->index + i)) {
+							inst_idx = d->offset;
+							break;
+						}
+					}
+
 					f32 *pVal = it->values[i];
-					consts[n].index = SWAP32(((inst_idx + i)*16));
+					consts[n].index = SWAP32((inst_idx*16));
 					consts[n].values[0].f = pVal[0];
 					consts[n].values[0].u = SWAP32(consts[n].values[0].u);
 					consts[n].values[1].f = pVal[1];
