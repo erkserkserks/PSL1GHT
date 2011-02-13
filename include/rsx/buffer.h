@@ -11,7 +11,7 @@ extern "C" {
 	#define assert(x) if(!(x)) return
 #endif
 
-#define COMMAND_LENGTH(context, len) if(context->current + len*4 > context->end) assert(rsxContextCallback(context, len) == 0)
+#define COMMAND_LENGTH(context, len) if((context)->current + (len)*4 > (context)->end) assert(rsxContextCallback((context), (len)) == 0)
 
 typedef union {
 	float	 f;
