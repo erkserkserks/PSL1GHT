@@ -146,6 +146,7 @@ typedef struct {
 } realityTexture;
 
 void realitySetTexture(gcmContextData *context, uint32_t unit, realityTexture *tex);
+void realitySetTextureControl(gcmContextData *context, uint32_t unit,uint32_t enable,uint16_t minlod,uint16_t maxlod,uint8_t maxaniso);
 
 #define REALITY_FRONT_FACE_CW 			0x00000900
 #define REALITY_FRONT_FACE_CCW			0x00000901

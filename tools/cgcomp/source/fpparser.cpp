@@ -677,7 +677,7 @@ int CFPParser::GetConstRegType(int index)
 
 	for(;it!=m_lParameters.end();it++) {
 		for(i=0;i<it->count;i++) {
-			if((int)(it->index + 1)==index) {
+			if((int)(it->index + i)==index) {
 				if(it->is_const && it->is_internal)
 					return NVFXSR_IMM;
 				else if(it->is_const)

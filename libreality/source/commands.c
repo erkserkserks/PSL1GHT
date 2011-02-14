@@ -215,11 +215,13 @@ void realitySetFragmentProgramParameter(gcmContextData *context,realityFragmentP
 		{
 			s32 i,cnt = consts[index].count;
 			for(i=0;i<cnt;i++) {
-				params[0] = swapF32_16(value[(i*4) + 0]);
-				params[1] = swapF32_16(value[(i*4) + 1]);
-				params[2] = swapF32_16(value[(i*4) + 2]);
-				params[3] = swapF32_16(value[(i*4) + 3]);
-				rsxInlineTransfer(context,offset + consts[index + i].index,params,4,GCM_LOCATION_RSX);
+				if(consts[index + i].index!=0xffffffff) {
+					params[0] = swapF32_16(value[(i*4) + 0]);
+					params[1] = swapF32_16(value[(i*4) + 1]);
+					params[2] = swapF32_16(value[(i*4) + 2]);
+					params[3] = swapF32_16(value[(i*4) + 3]);
+					realityInlineTransfer(context,offset + consts[index + i].index,params,4,REALITY_RSX_MEMORY);
+				}
 			}
 			return;
 		}
@@ -244,6 +246,14 @@ void realitySetTexture(gcmContextData *context, uint32_t unit, realityTexture *t
 		tex->width << 16 | tex->height, tex->borderColor);
 	commandBufferPutCmd1(context, NV40_3D_TEX_SIZE1(unit), tex->stride | 
 		(1 << NV40_3D_TEX_SIZE1_DEPTH__SHIFT));
+}
+
+void realitySetTextureControl(gcmContextData *context, uint32_t unit,uint32_t enable,uint16_t minlod,uint16_t maxlod,uint8_t maxaniso) {
+	COMMAND_LENGTH(context,2);
+	commandBufferPutCmd1(context,NV30_3D_TEX_ENABLE(unit),((maxaniso << NV40_3D_TEX_ENABLE_ANISO__SHIFT) | 
+												      (maxlod << NV40_3D_TEX_ENABLE_MIPMAP_MAX_LOD__SHIFT) |
+												      (minlod << NV40_3D_TEX_ENABLE_MIPMAP_MIN_LOD__SHIFT) |
+												      (enable << 31)));
 }
 
 void realityViewportTranslate(gcmContextData *context, float x, float y, float z, float w) {
