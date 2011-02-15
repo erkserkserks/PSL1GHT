@@ -12,6 +12,7 @@ struct fragment_program_data
 {
 	u32 offset;
 	u32 index;
+	s32 user;
 };
 
 class CCompilerFP

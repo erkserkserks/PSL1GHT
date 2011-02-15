@@ -51,3 +51,7 @@ s32 realityFragmentProgramGetAttrib(realityFragmentProgram *fp,const char *name)
 	return -1;
 }
 
+realityConstOffsetTable* realityFragmentProgramGetConstOffsetTable(realityFragmentProgram *fp,u32 table_off)
+{
+	return (realityConstOffsetTable*)(((u8*)fp) + table_off);
+}

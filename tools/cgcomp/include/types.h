@@ -127,6 +127,12 @@ typedef struct rsx_const
 
 } rsxProgramConst;
 
+typedef struct rsx_co_table
+{
+	u32 num;
+	u32 offset[];
+} rsxConstOffsetTable;
+
 typedef struct rsx_attrib
 {
 	u32 name_off;

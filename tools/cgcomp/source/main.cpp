@@ -345,11 +345,33 @@ int compileFP()
 		while(lastoff&3)
 			fragmentprogram[lastoff++] = 0;
 
+		std::list<struct fragment_program_data> const_relocs = compiler.GetConstRelocations();
+		for(std::list<param>::iterator it = params.begin();it!=params.end();it++) {
+			if(it->is_const && !it->is_internal) {
+				for(i=0;i<(s32)it->count;i++) {
+					s32 k = 0;
+					rsxConstOffsetTable *const_table = (rsxConstOffsetTable*)(fragmentprogram + lastoff);
+					
+					const_table->num = SWAP32(0);
+					for(std::list<struct fragment_program_data>::iterator d=const_relocs.begin();d!=const_relocs.end();d++) {
+						if(d->index==(it->index + i)) {
+							const_table->offset[k++] = SWAP32((d->offset*16));
+							d->user = lastoff;
+						}
+					}
+					const_table->num = SWAP32(k);
+					lastoff += (4*k + 4);
+				}
+			}
+		}
+
+		while(lastoff&3)
+			fragmentprogram[lastoff++] = 0;
+
 		fp->const_off = SWAP32(lastoff);
 		rsxProgramConst *consts = (rsxProgramConst*)(fragmentprogram + lastoff);
 
 		n = 0;
-		std::list<struct fragment_program_data> const_relocs = compiler.GetConstRelocations();
 		for(std::list<param>::iterator it = params.begin();it!=params.end();it++) {
 			if(it->is_const && !it->is_internal) {
 				it->user = lastoff + (n*sizeof(rsxProgramConst));
@@ -359,17 +381,17 @@ int compileFP()
 				consts[n].name_off = SWAP32(0);
 
 				for(i=0;i<(s32)it->count;i++) {
-					s32 inst_idx = -1;
+					s32 table_off = -1;
 
 					for(std::list<struct fragment_program_data>::iterator d=const_relocs.begin();d!=const_relocs.end();d++) {
 						if(d->index==(it->index + i)) {
-							inst_idx = d->offset;
+							table_off = d->user;
 							break;
 						}
 					}
 
 					f32 *pVal = it->values[i];
-					consts[n].index = SWAP32((inst_idx*16));
+					consts[n].index = SWAP32(table_off);
 					consts[n].values[0].f = pVal[0];
 					consts[n].values[0].u = SWAP32(consts[n].values[0].u);
 					consts[n].values[1].f = pVal[1];

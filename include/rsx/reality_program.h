@@ -74,6 +74,12 @@ typedef struct reality_const
 
 } realityProgramConst;
 
+typedef struct reality_co_table
+{
+	u32 num;
+	u32 offset[];
+} realityConstOffsetTable;
+
 typedef struct reality_attrib
 {
 	u32 name_off;
@@ -95,6 +101,8 @@ realityProgramConst* realityFragmentProgramGetConsts(realityFragmentProgram *fp)
 s32 realityFragmentProgramGetConst(realityFragmentProgram *fp,const char *name);
 realityProgramAttrib* realityFragmentProgramGetAttribs(realityFragmentProgram *fp);
 s32 realityFragmentProgramGetAttrib(realityFragmentProgram *fp,const char *name);
+
+realityConstOffsetTable* realityFragmentProgramGetConstOffsetTable(realityFragmentProgram *fp,u32 table_off);
 
 #ifdef __cplusplus
 	}

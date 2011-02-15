@@ -207,20 +207,25 @@ void realityLoadFragmentProgram(gcmContextData *context, realityFragmentProgram 
 
 void realitySetFragmentProgramParameter(gcmContextData *context,realityFragmentProgram *program,s32 index,const f32 *value,u32 offset)
 {
+	s32 i;
 	f32 params[4] = {0.0f,0.0f,0.0f,0.0f};
 	realityProgramConst *consts = realityFragmentProgramGetConsts(program);
 
 	switch(consts[index].type) {
 		case PARAM_FLOAT4x4:
 		{
-			s32 i,cnt = consts[index].count;
-			for(i=0;i<cnt;i++) {
-				if(consts[index + i].index!=0xffffffff) {
-					params[0] = swapF32_16(value[(i*4) + 0]);
-					params[1] = swapF32_16(value[(i*4) + 1]);
-					params[2] = swapF32_16(value[(i*4) + 2]);
-					params[3] = swapF32_16(value[(i*4) + 3]);
-					realityInlineTransfer(context,offset + consts[index + i].index,params,4,REALITY_RSX_MEMORY);
+			s32 j,cnt = consts[index].count;
+			for(j=0;j<cnt;j++) {
+				if(consts[index + j].index!=0xffffffff) {
+					realityConstOffsetTable *co_table = realityFragmentProgramGetConstOffsetTable(program,consts[index + j].index);
+
+					params[0] = swapF32_16(value[(j*4) + 0]);
+					params[1] = swapF32_16(value[(j*4) + 1]);
+					params[2] = swapF32_16(value[(j*4) + 2]);
+					params[3] = swapF32_16(value[(j*4) + 3]);
+					
+					for(i=0;i<co_table->num;i++)
+						realityInlineTransfer(context,offset + co_table->offset[i],params,4,REALITY_RSX_MEMORY);
 				}
 			}
 			return;
@@ -236,7 +241,12 @@ void realitySetFragmentProgramParameter(gcmContextData *context,realityFragmentP
 			params[0] = swapF32_16(value[0]);
 			break;
 	}
-	realityInlineTransfer(context,offset + consts[index].index,params,4,REALITY_RSX_MEMORY);
+	if(consts[index].index!=0xffffffff) {
+		realityConstOffsetTable *co_table = realityFragmentProgramGetConstOffsetTable(program,consts[index].index);
+
+		for(i=0;i<co_table->num;i++)
+			realityInlineTransfer(context,offset + co_table->offset[i],params,4,REALITY_RSX_MEMORY);
+	}
 }
 
 void realitySetTexture(gcmContextData *context, uint32_t unit, realityTexture *tex) {

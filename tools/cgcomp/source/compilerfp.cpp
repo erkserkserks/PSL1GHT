@@ -320,6 +320,7 @@ void CCompilerFP::emit_src(s32 pos,struct nvfx_src *src,bool *have_const)
 
 				fpd.offset = m_nCurInstruction + 1;
 				fpd.index = src->reg.index;
+				fpd.user = -1;
 				memset(&m_pInstructions[fpd.offset],0,sizeof(struct fragment_program_exec));
 				m_lConstData.push_back(fpd);
 			}
