@@ -277,12 +277,17 @@ int select(int nfds, fd_set* readfds, fd_set* writefds, fd_set* errorfds, struct
 
 int poll(struct pollfd fds[], nfds_t nfds, int timeout)
 {
+	int i, r;
 	if (!LIBNET_INITIALIZED) {
 		errno = ENOSYS;
 		return -1;
 	}
-
-	return netErrno(netPoll(fds, nfds, timeout));
+	for (i = 0; i < nfds; i++)
+		fds[i].fd &= ~SOCKET_FD_MASK;
+	r = netErrno(netPoll(fds, nfds, timeout));
+	for (i = 0; i < nfds; i++)
+		fds[i].fd |= SOCKET_FD_MASK;
+	return r;
 }
 
 int getsockname(int socket, struct sockaddr* address, socklen_t* address_len)
