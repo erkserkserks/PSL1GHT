@@ -38,3 +38,10 @@ EXPORT(oskAddSupportLanguage, 0x7f21c918);
 EXPORT(oskLoadAsync, 0x7fcfc915);
 EXPORT(oskSetInitialKeyLayout, 0xc427890c);
 EXPORT(oskSetLayoutMode, 0xf0ec3ccc);
+
+EXPORT(audioOutGetNumberOfDevice, 0xe5e2b09d);
+EXPORT(audioOutGetDeviceInfo, 0x7663e368);
+EXPORT(audioOutGetSoundAvailability, 0xc01b4e7c);
+EXPORT(audioOutConfigure, 0x4692ab35);
+EXPORT(audioOutGetState, 0xf4e3caa0);
+
