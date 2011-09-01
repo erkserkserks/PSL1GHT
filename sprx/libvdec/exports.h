@@ -6,3 +6,5 @@ EXPORT(vdec_end_sequence,   0x824433f0);
 EXPORT(vdec_open,           0xb6bbcd5d);
 EXPORT(vdec_start_sequence, 0xc757c2aa);
 EXPORT(vdec_query_attr,     0xff6f6ebe);
+EXPORT(vdec_open_ex,        0x0053e2d8);
+EXPORT(vdec_query_attr_ex,  0xc982a84a);

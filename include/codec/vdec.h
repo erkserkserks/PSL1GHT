@@ -43,6 +43,12 @@ typedef struct vdec_type {
 	uint32_t profile_level;
 } vdec_type;
 
+typedef struct vdec_type_ex {
+	uint32_t codec_type;
+	uint32_t profile_level;
+	uint32_t specific_info_addr;
+} vdec_type_ex;
+
 
 typedef struct vdec_attr {
 	uint32_t mem_size;
@@ -59,6 +65,16 @@ typedef struct vdec_config {
 	uint32_t spu_thread_prio;
 	uint32_t num_spus;
 } vdec_config;
+
+typedef struct vdec_config_ex {
+	uint32_t mem_addr;
+	uint32_t mem_size;
+	uint32_t ppu_thread_prio;
+	uint32_t ppu_thread_stack_size;
+	uint32_t spu_thread_prio;
+	uint32_t num_spus;
+	uint32_t spurs_addr;
+} vdec_config_ex;
 
 typedef struct vdec_ts {
 	uint32_t low,hi;
@@ -105,8 +121,11 @@ typedef struct vdec_closure {
 
 
 int32_t vdec_query_attr(const vdec_type *type, vdec_attr *attr);
+int32_t vdec_query_attr_ex(const vdec_type_ex *type, vdec_attr *attr);
 int32_t vdec_open(const vdec_type *type, const vdec_config *config,
-		  const vdec_closure *c, uint32_t *handleptr);
+    const vdec_closure *c, uint32_t *handleptr);
+int32_t vdec_open_ex(const vdec_type_ex *type, const vdec_config_ex *config,
+    const vdec_closure *c, uint32_t *handleptr);
 int32_t vdec_close(uint32_t handle);
 int32_t vdec_start_sequence(uint32_t handle);
 int32_t vdec_end_sequence(uint32_t handle);
@@ -193,3 +212,12 @@ typedef struct vdec_h264_info {
 	bool     entropy_coding_mode_flag;
 	uint16_t nalUnitPresentFlags;
 } vdec_h264_info;
+
+
+typedef struct vdec_h264_specific_info {
+	uint32_t   thisSize;
+	uint16_t maxDecodedFrameWidth;
+	uint16_t maxDecodedFrameHeight;
+	bool     disableDeblockingFilter;
+	uint8_t  numberOfDecodedFrameBuffer;
+} vdec_h264_specific_info;
