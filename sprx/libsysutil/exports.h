@@ -44,4 +44,4 @@ EXPORT(audioOutGetDeviceInfo, 0x7663e368);
 EXPORT(audioOutGetSoundAvailability, 0xc01b4e7c);
 EXPORT(audioOutConfigure, 0x4692ab35);
 EXPORT(audioOutGetState, 0xf4e3caa0);
-
+EXPORT(audioOutSetCopyControl, 0xc96e89e9);

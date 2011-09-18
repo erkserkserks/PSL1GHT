@@ -73,3 +73,9 @@ int audioOutConfigure(uint32_t out, AudioOutConfiguration *conf,
 		      uint32_t *option, uint32_t wait_for_event);
 		      
 int audioOutGetState(uint32_t out, uint32_t deviceindex, AudioOutState *state);
+
+#define AUDIO_OUT_COPY_CONTROL_FREE  0
+#define AUDIO_OUT_COPY_CONTROL_ONCE  1
+#define AUDIO_OUT_COPY_CONTROL_NEVER 2
+
+int audioOutSetCopyControl(uint32_t out, uint32_t val);
