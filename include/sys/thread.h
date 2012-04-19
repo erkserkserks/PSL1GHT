@@ -44,6 +44,21 @@ typedef struct sys_lwmutex_attribute_t {
 #define   MUTEX_NOT_ADAPTIVE		0x2000
 #define   MUTEX_ADAPTIVE		0x1000
 
+
+
+typedef struct sys_lwcond {
+	u32 lwmutex_ptr;
+	u32 lwcond_queue;
+} sys_lwcond_t;
+
+typedef struct sys_lwcond_attribute {
+	char name[8];
+} sys_lwcond_attribute_t;
+
+
+
+
+
 typedef u32 sys_mutex_t;
 typedef struct sys_mutex_attribute_t {
 	u32 attr_protocol;
@@ -113,6 +128,12 @@ s32 sys_lwmutex_destroy(sys_lwmutex_t *lwmutex);
 s32 sys_lwmutex_lock(sys_lwmutex_t *lwmutex, u64 timeout_usec);
 s32 sys_lwmutex_trylock(sys_lwmutex_t *lwmutex);
 s32 sys_lwmutex_unlock(sys_lwmutex_t *lwmutex);
+
+s32 sys_lwcond_create(sys_lwcond_t *cond, sys_lwmutex_t *mtx, const sys_lwcond_attribute_t *attr);
+s32 sys_lwcond_destroy(sys_lwcond_t *cond);
+s32 sys_lwcond_wait(sys_lwcond_t *cond, u64 timeout_usec);
+s32 sys_lwcond_signal(sys_lwcond_t *cond);
+s32 sys_lwcond_signal_all(sys_lwcond_t *cond);
 
 typedef u32 sys_event_queue_t;
 typedef struct sys_event_t {

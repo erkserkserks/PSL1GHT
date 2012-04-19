@@ -152,3 +152,67 @@ s32 sys_event_queue_drain(sys_event_queue_t eveid)
 	return lv2QEventDrain(eveid);
 }
 
+
+s32 sysLwMutexCreate(sys_lwmutex_t* mutex, const sys_lwmutex_attribute_t* attr);
+s32 sysLwMutexDestroy(sys_lwmutex_t* mutex);
+s32 sysLwMutexLock(sys_lwmutex_t* mutex, u64 timeout);
+s32 sysLwMutexTryLock(sys_lwmutex_t* mutex);
+s32 sysLwMutexUnlock(sys_lwmutex_t* mutex);
+
+
+
+s32 sys_lwmutex_create(sys_lwmutex_t *mutex, const sys_lwmutex_attribute_t *attr)
+{
+	return sysLwMutexCreate(mutex, attr);
+}
+
+s32 sys_lwmutex_destroy(sys_lwmutex_t *mutex)
+{
+	return sysLwMutexDestroy(mutex);
+}
+
+s32 sys_lwmutex_lock(sys_lwmutex_t *mutex, u64 timeout_usec)
+{
+	return sysLwMutexLock(mutex, timeout_usec);
+}
+
+s32 sys_lwmutex_trylock(sys_lwmutex_t *mutex)
+{
+	return sysLwMutexTryLock(mutex);
+}
+
+s32 sys_lwmutex_unlock(sys_lwmutex_t *mutex)
+{
+	return sysLwMutexUnlock(mutex);
+}
+
+s32 sysLwCondCreate(sys_lwcond_t *cond, sys_lwmutex_t *mutex, const sys_lwcond_attribute_t *attr);
+s32 sysLwCondDestroy(sys_lwcond_t *cond);
+s32 sysLwCondSignal(sys_lwcond_t *cond);
+s32 sysLwCondSignalAll(sys_lwcond_t *cond);
+s32 sysLwCondWait(sys_lwcond_t *cond, u64 timeout);
+
+s32 sys_lwcond_create(sys_lwcond_t *cond, sys_lwmutex_t *mutex, const sys_lwcond_attribute_t *attr)
+{
+	return sysLwCondCreate(cond, mutex, attr);
+}
+
+s32 sys_lwcond_destroy(sys_lwcond_t *cond)
+{
+	return sysLwCondDestroy(cond);
+}
+
+s32 sys_lwcond_wait(sys_lwcond_t *cond, u64 timeout_usec)
+{
+	return sysLwCondWait(cond, timeout_usec);
+}
+
+s32 sys_lwcond_signal(sys_lwcond_t *cond)
+{
+	return sysLwCondSignal(cond);
+}
+
+s32 sys_lwcond_signal_all(sys_lwcond_t *cond)
+{
+	return sysLwCondSignalAll(cond);
+}

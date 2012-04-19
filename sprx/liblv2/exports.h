@@ -24,3 +24,9 @@ EXPORT(sysLwMutexDestroy, 0xc3476d0c);
 EXPORT(sysLwMutexLock, 0x1573dc3f);
 EXPORT(sysLwMutexTryLock, 0xaeb78725);
 EXPORT(sysLwMutexUnlock, 0x1bc200f4);
+
+EXPORT(sysLwCondSignalAll, 0xe9a1bd84);
+EXPORT(sysLwCondSignal, 0xef87a695);
+EXPORT(sysLwCondDestroy, 0x1c9a942c);
+EXPORT(sysLwCondWait, 0x2a6d9d51);
+EXPORT(sysLwCondCreate, 0xda0eb71a);
