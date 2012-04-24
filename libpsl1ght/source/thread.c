@@ -53,6 +53,12 @@ s32 sys_ppu_thread_recover_page_fault(sys_ppu_thread_t id)
 	return lv2ThreadRecoverPageFault(id);
 }
 
+s32 sys_ppu_thread_get_page_fault_context(sys_ppu_thread_t id,
+					  sys_ppu_thread_icontext_t *ctx)
+{
+	return lv2ThreadGetPageFaultContext(id, ctx);
+}
+
 s32 sys_ppu_thread_rename(sys_ppu_thread_t id, char* name)
 {
 	return lv2ThreadRename(id, name);

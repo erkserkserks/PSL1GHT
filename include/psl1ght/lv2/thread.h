@@ -13,6 +13,7 @@ LV2_SYSCALL lv2ThreadGetPriority(sys_ppu_thread_t threadid, s32* priority) { ret
 LV2_SYSCALL lv2ThreadGetStackInformation(sys_ppu_thread_stack_t_32 *stackinfo) { return Lv2Syscall1(49, (u64)stackinfo); }
 LV2_SYSCALL lv2ThreadRename(sys_ppu_thread_t id, char*name) { return Lv2Syscall2(56, id, (u64)name); }
 LV2_SYSCALL lv2ThreadRecoverPageFault(sys_ppu_thread_t threadid) { return Lv2Syscall1(57, threadid); }
+LV2_SYSCALL lv2ThreadGetPageFaultContext(sys_ppu_thread_t threadid, void *ctx) { return Lv2Syscall2(58, threadid, (u64)ctx); }
 
 LV2_SYSCALL lv2MutexCreate(sys_mutex_t * mutexid, const sys_mutex_attribute_t *attr) { return Lv2Syscall2(100, (u64)mutexid, (u64)attr); }
 LV2_SYSCALL lv2MutexDestroy(sys_mutex_t mutexid) { return Lv2Syscall1(101, mutexid); }

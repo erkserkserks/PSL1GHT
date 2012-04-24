@@ -92,6 +92,17 @@ typedef struct sys_semaphore_attribute_t {
 	char name[8];
 }sys_semaphore_attribute_t;
 
+
+typedef struct {
+	u64 gpr[32];
+	u32 cr;
+	u32 rsv1;
+	u64 xer;
+	u64 lr;
+	u64 ctr;
+	u64 pc;
+} sys_ppu_thread_icontext_t;
+
 s32 sys_ppu_thread_create_ex(sys_ppu_thread_t * threadid, opd32* opdentry, u64 arg, s32 priority, u64 stacksize, u64 flags, char * threadname);
 
 void sys_ppu_thread_yield();
@@ -103,6 +114,7 @@ s32 sys_ppu_thread_get_priority(sys_ppu_thread_t threadid, s32* priority);
 s32 sys_ppu_thread_get_stack_information(sys_ppu_thread_stack_t *stackinfo);
 s32 sys_ppu_thread_rename(sys_ppu_thread_t id, char* name);
 s32 sys_ppu_thread_recover_page_fault(sys_ppu_thread_t id);
+s32 sys_ppu_thread_get_page_fault_context(sys_ppu_thread_t id, sys_ppu_thread_icontext_t *ctx);
 
 s32 sys_mutex_create(sys_mutex_t * mutexid, const sys_mutex_attribute_t *attr);
 s32 sys_mutex_destroy(sys_mutex_t mutexid);
