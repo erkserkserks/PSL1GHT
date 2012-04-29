@@ -110,9 +110,9 @@ void init_Self_Shdr(Self_Shdr* hdr) {
   set_u32(&(hdr->s_hdrversion), 2);
 #ifdef SPRX
   // on 3.41
-  //set_u16(&(hdr->s_flags), 4);
+  set_u16(&(hdr->s_flags), 4);
   // on 3.55
-  set_u16(&(hdr->s_flags), 7);
+  // set_u16(&(hdr->s_flags), 7);
 #else
   set_u16(&(hdr->s_flags), 1);
 #endif
@@ -128,18 +128,19 @@ void init_Self_Ihdr(Self_Ihdr* hdr) {
   set_u64(&(hdr->i_authid), 0x1070000052000001LL);
 #else
   //set_u64(&(hdr->i_authid), 0x10700003FD000001LL);
-  set_u64(&(hdr->i_authid), 0x10700003FF000001LL);
+  // set_u64(&(hdr->i_authid), 0x10700003FF000001LL);
+  set_u64(&(hdr->i_authid), 0x1010000001000003LL);
 #endif
   set_u32(&(hdr->i_apptype), 4);
 #endif
   //set_u64(&(hdr->i_authid), 0x1070000500000001LL);
 
   set_u32(&(hdr->i_magic), 0x01000002);
-  set_u64(&(hdr->i_version), 0x0003005500000000LL);
+  //  set_u64(&(hdr->i_version), 0x0003005500000000LL);
   //set_u64(&(hdr->i_version), 0x0003004000000000LL);
   //set_u64(&(hdr->i_version), 0x0003000000000000LL);
   //set_u64(&(hdr->i_version), 0x0001004000001000LL);
-  //set_u64(&(hdr->i_version), 0x0001000000000000LL);
+  set_u64(&(hdr->i_version), 0x0001000000000000LL);
 }
 
 void init_Self_Ehdr(Self_Ehdr* hdr) {
