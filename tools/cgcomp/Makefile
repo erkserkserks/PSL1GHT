@@ -122,7 +122,7 @@ DEPENDS	:=	$(OFILES:.o=.d)
 #---------------------------------------------------------------------------------
 $(OUTPUT): $(DFILES) $(OFILES)
 	@echo linking ... $(notdir $@)
-	@$(LD) $(LDFLAGS) $^ $(LIBPATHS) $(LIBS) -o $@
+	$(LD)  $^ $(LIBPATHS) $(LIBS) -o $@ $(LDFLAGS)
 
 #---------------------------------------------------------------------------------
 # Compile Targets for C/C++
