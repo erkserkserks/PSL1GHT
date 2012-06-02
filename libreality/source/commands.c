@@ -249,7 +249,7 @@ void realitySetFragmentProgramParameter(gcmContextData *context,realityFragmentP
 	}
 }
 
-void realitySetTexture(gcmContextData *context, uint32_t unit, realityTexture *tex) {
+void realitySetTexture(gcmContextData *context, uint32_t unit, const realityTexture *tex) {
 	COMMAND_LENGTH(context, 11);
 	commandBufferPutCmd8(context, NV30_3D_TEX_OFFSET(unit), tex->offset, tex->format,
 		tex->wrap, tex->enable, tex->swizzle, tex->filter,
