@@ -165,7 +165,7 @@ void realityLoadVertexProgram(gcmContextData *context, realityVertexProgram *pro
 	}
 }
 
-void realitySetVertexProgramConstant4f(gcmContextData *context, int num, float values[4]){
+void realitySetVertexProgramConstant4f(gcmContextData *context, int num, const float values[4]){
 
 	COMMAND_LENGTH(context, 6);
 
@@ -178,7 +178,7 @@ void realitySetVertexProgramConstant4f(gcmContextData *context, int num, float v
 							);
 }
 
-void realitySetVertexProgramConstant4fBlock(gcmContextData *context, realityVertexProgram *prog, int index, int num4fConstants, float *values)
+void realitySetVertexProgramConstant4fBlock(gcmContextData *context, realityVertexProgram *prog, int index, int num4fConstants, const float *values)
 {
 	int n;
 	realityProgramConst *constants = realityVertexProgramGetConstants(prog);

@@ -124,8 +124,8 @@ typedef struct {
 
 void realityLoadVertexProgram(gcmContextData *context, realityVertexProgram *prog);
 void realityLoadVertexProgram_old(gcmContextData *context, realityVertexProgram_old *prog);
-void realitySetVertexProgramConstant4f(gcmContextData *context, int constant, float values[4]);
-void realitySetVertexProgramConstant4fBlock(gcmContextData *context, realityVertexProgram *prog, int index, int num4fConstants, float *values);
+void realitySetVertexProgramConstant4f(gcmContextData *context, int constant, const float values[4]);
+void realitySetVertexProgramConstant4fBlock(gcmContextData *context, realityVertexProgram *prog, int index, int num4fConstants, const float *values);
 void realityLoadFragmentProgram(gcmContextData *context, realityFragmentProgram *prog,u32 offset,u32 location);
 void realitySetFragmentProgramParameter(gcmContextData *context,realityFragmentProgram *program,s32 index,const f32 *value,u32 offset);
 
