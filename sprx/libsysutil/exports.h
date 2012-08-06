@@ -15,6 +15,9 @@ EXPORT(sysRegisterCallback_ex, 0x9d98afa0);
 EXPORT(sysCheckCallback, 0x189a74da);
 EXPORT(sysUnregisterCallback, 0x02ff3c1b);
 
+EXPORT(sysUtilGetSystemParamInt, 0x40e895d3);
+EXPORT(sysUtilGetSystemParamString, 0x938013a0);
+
 EXPORT(msgDialogClose, 0x62b0f803);
 EXPORT(msgDialogDelayedClose, 0x20543730);
 EXPORT(msgDialogErrorCode_ex, 0x3e22cb4b);;
