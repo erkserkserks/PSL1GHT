@@ -33,7 +33,7 @@ typedef enum {
 typedef struct{ 
 	oskInputFieldResult result;
 	s32 length;
-	u16 *str;
+	s32 str_addr;
 } oskCallbackReturnParam;
 
 typedef enum{
@@ -127,8 +127,8 @@ typedef struct{
 } oskParam;
 
 typedef struct{
-	u16 *message;
-	u16 *startText;
+	uint32_t message_addr;
+	uint32_t startText_addr;
 	s32 maxLength;
 } oskInputFieldInfo;
 
@@ -139,6 +139,15 @@ typedef struct{
 #define OSK_LAYOUTMODE_VERTICAL_ALIGN_TOP 		0x00001000
 #define OSK_LAYOUTMODE_VERTICAL_ALIGN_CENTER 	0x00002000
 #define OSK_LAYOUTMODE_VERTICAL_ALIGN_BOTTOM 	0x00004000
+
+#define EVENT_OSK_LOADED          0x502
+#define EVENT_OSK_FINISHED        0x503
+#define EVENT_OSK_UNLOADED        0x504
+#define EVENT_OSK_INPUT_ENTERED   0x505
+#define EVENT_OSK_INPUT_CANCELED  0x506
+#define EVENT_OSK_DEVICED_CHANGED 0x507
+#define EVENT_OSK_DISPLAY_CHANGED 0x508
+
 
 
 s32 oskSetInitialInputDevice(oskInputDevice input);
