@@ -188,7 +188,7 @@ void enumerate_segments() {
     segment_ptr->rlen = get_u64(&(elf_segment->p_filesz));
 
     segment_ptr->encrypted = 1;
-    segment_ptr->compressed = 0; // segment_ptr->rlen != 0;
+    segment_ptr->compressed = segment_ptr->rlen != 0;
     segment_ptr->incrypt = 1;
     
     set_u32(&(segment_ptr->enc_segment.segment_number), i);
