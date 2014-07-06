@@ -231,6 +231,10 @@ ssize_t recvfrom(int s, void *buf, size_t len, int flags, struct sockaddr* from,
 	s32 ret;
 	net_socklen_t socklen;
 	net_socklen_t* socklenp = (from && fromlen) ? &socklen : NULL;
+
+        if(socklenp)
+                socklen = *fromlen;
+
 	if (LIBNET_INITIALIZED)
 		ret = netRecvFrom(FD(s), buf, len, flags, from, socklenp);
 	else
