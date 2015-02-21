@@ -48,3 +48,15 @@ EXPORT(audioOutGetSoundAvailability, 0xc01b4e7c);
 EXPORT(audioOutConfigure, 0x4692ab35);
 EXPORT(audioOutGetState, 0xf4e3caa0);
 EXPORT(audioOutSetCopyControl, 0xc96e89e9);
+
+EXPORT(webBrowserConfig, 0x7fb3c6a5);
+EXPORT(webBrowserConfigSetFunction, 0xe22ed55d);
+EXPORT(webBrowserConfigSetTabCount, 0x619b1427);
+EXPORT(webBrowserConfigSetHeapSize, 0xfe669845);
+EXPORT(webBrowserEstimate, 0x6d087930);
+EXPORT(webBrowserInitialize, 0x749c9b5f);
+EXPORT(webBrowserCreate, 0xa5f12145);
+EXPORT(webBrowserDestroy, 0xe8dee79c);
+EXPORT(webBrowserConfigSetUnknownMIMETypeHook, 0xa9a439e0);
+EXPORT(webBrowserShutdown, 0x93ced48d);
+EXPORT(webBrowserSetRequestHook, 0xee7528f3);
