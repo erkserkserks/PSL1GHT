@@ -403,7 +403,30 @@ int getsockopt(int socket, int level, int option_name, void* option_value, sockl
 		h_errno = TRY_AGAIN;
 		return -1;
 	}
-	return netErrno(netGetSockOpt(FD(socket), level, option_name, option_value, option_len));
+
+	net_socklen_t len = option_len ? *option_len : 0;
+	net_socklen_t* lenp = option_len ? &len : NULL;
+
+
+        s32 ret = netGetSockOpt(FD(socket), level, option_name, option_value, lenp);
+        if(ret < 0)
+          return netErrno(ret);
+
+	if (lenp) {
+                *option_len = len;
+                if(len == sizeof(int) && level == SOL_SOCKET && option_name == SO_ERROR) {
+                        int soerr = *(int *)option_value;
+                        if(soerr) {
+                                if(soerr < sizeof(neterrno2errno) / sizeof(neterrno2errno[0]))
+                                        soerr = neterrno2errno[soerr] ?: ENOTSUP;
+                                else
+                                        soerr = ENOTSUP;
+                                *(int *)option_value = soerr;
+                        }
+                }
+
+        }
+	return ret;
 }
 
 int setsockopt(int socket, int level, int option_name, const void* option_value, socklen_t option_len)
