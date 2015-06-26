@@ -18,10 +18,14 @@ int netInitialize()
 	if (ret < 0)
 		return lv2Errno(ret);
 
-	__netMemory = malloc(LIBNET_MEMORY_SIZE);
+        uint32_t mem;
+        Lv2Syscall3(348, LIBNET_MEMORY_SIZE, 0x200, (u64)&mem);
+
+        __netMemory = (void *)mem;
+
 	netInitialization init;
 	memset(&init, 0, sizeof(init));
-	init.memory = (lv2_void)(u64)__netMemory;
+	init.memory = mem;
 	init.memory_size = LIBNET_MEMORY_SIZE;
 	init.flags = 0;
 	ret = netInitializeNetworkEx(&init);
@@ -36,7 +40,7 @@ int netDeinitialize()
 {
 	netFinalizeNetwork();
 	if (__netMemory)
-		free(__netMemory);
+                Lv2Syscall1(349, (uint64_t)__netMemory);
 	__netMemory = NULL;
 
 	SysUnloadModule(SYSMODULE_NET);
