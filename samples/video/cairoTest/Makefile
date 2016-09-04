@@ -10,7 +10,7 @@ BUILD		:=	build
 SOURCE		:=	source
 INCLUDE		:=	include
 DATA		:=	data
-LIBS		:=	-lgcm_sys -lreality -lsysutil -lio -lcairo -lm -lfreetype -lz -lpixman-1 -lpng
+LIBS		:=	-lgcm_sys -lreality -lsysutil -lio -lcairo -lfreetype -lz -lpixman-1 -lm -lpng
 
 TITLE		:=	Cairo Test - PSL1GHT
 APPID		:=	TESTCAIR0
